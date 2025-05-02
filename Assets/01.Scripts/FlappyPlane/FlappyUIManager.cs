@@ -31,7 +31,6 @@ public class FlappyUIManager : MonoBehaviour
     // 게임 점수 UI
     public void UpdateScore(int score)
     {
-        Debug.Log(score);
         scoreText.text = score.ToString();
     }
 }

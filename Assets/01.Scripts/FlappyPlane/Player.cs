@@ -15,7 +15,7 @@ public class Player : MonoBehaviour
     // 게임 진행을 위해 사용하는 변수
     private float deathCooldown = 0f; // 충돌후 일정 시간 후 죽도록
     private bool isFlap = false; // 이동하는지 구분
-    private bool isDead = false; // 죽었는지 구분
+    public bool isDead = false; // 죽었는지 구분
 
     void Start()
     {
