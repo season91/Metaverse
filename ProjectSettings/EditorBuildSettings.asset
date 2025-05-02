@@ -8,4 +8,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Metaverse.unity
     guid: 2cda990e2423bbf4892e6590ba056729
+  - enabled: 1
+    path: Assets/Scenes/FlappyPlane.unity
+    guid: 89af6fe1c0d27054cbe5e03e77138d54
   m_configObjects: {}

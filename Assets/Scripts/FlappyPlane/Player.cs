@@ -1,5 +1,6 @@
 using UnityEngine;
 
+// Flappy - Player 연결
 public class Player : MonoBehaviour
 {
     // Start에서 초기화 할 변수들
@@ -70,8 +71,7 @@ public class Player : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
 
-        Debug.Log("Collision with: " + collision.gameObject.name);
-        //if (isDead) return;
+        if (isDead) return;
         // 죽으면 1초 있다 재시작 처리
         isDead = true;
         deathCooldown = 1f;

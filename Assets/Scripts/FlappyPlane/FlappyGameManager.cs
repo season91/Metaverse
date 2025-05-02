@@ -1,5 +1,7 @@
 using UnityEngine;
 
+
+// Flappy - GameManager ¿¬°á
 public class FlappyGameManager : MonoBehaviour
 {
     private static FlappyGameManager flappyGameManager;
