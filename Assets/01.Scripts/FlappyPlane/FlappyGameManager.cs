@@ -37,15 +37,12 @@ public class FlappyGameManager : MonoBehaviour
 
     public void GameOver()
     {
-        // 게임 끝날 땐 ui get ready 이미지 UI 호출
-        //uiManager.SetRestart();
         uiManager.SetGameOver();
     }
 
     public void AddScore(int score)
     {
         currentScore += score;
-        // ui 에 점수 출력
         uiManager.UpdateScore(currentScore);
     }
 

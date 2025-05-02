@@ -32,12 +32,9 @@ public class Obstacle : MonoBehaviour
         float holeSize = Random.Range(holeSizeMin, holeSizeMax);
         float halfHoleSize = holeSize / 2;
 
-        // holeSize만큼 두 Object를 벌림
-        // localPosition 은 부모 기준
         topObject.localPosition = new Vector3(0, halfHoleSize); // 반만큼 위로 올리고
         bottomObject.localPosition = new Vector3(0, -halfHoleSize); // 반만큼 아래로 내리고
 
-        // 마지막 object 뒤에다가 공간만큼 더한 값으로 이동시켜 배치
         Vector3 placePosition = lastposition + new Vector3(widthPadding, 0);
 
         placePosition.y = Random.Range(lowPositionY, highPositionY);

@@ -9,16 +9,12 @@ public class BackGroundLopper : MonoBehaviour
 
     private void Start()
     {
-        // 장애물 전부 찾아와 랜덤 배치 해줄 것
-        // 여러 object들을 가져 올 것이기 때문에 가볍진 않기 때문에 start, awake 1회 동작만 하게 하는 것이 좋음
         Obstacle[] obstacles = GameObject.FindObjectsOfType<Obstacle>();
         obstacleLastPosition = obstacles[0].transform.position;
         obstacleCount = obstacles.Length;
 
         for (int i = 0; i < obstacleCount; i++)
         {
-            // 장애물 개수 만큼 랜덤 배치
-            // 배치한 위치 받아 와서 그 다음 장애물이 배치될 곳을 전달해줌
             obstacleLastPosition = obstacles[i].SetRandomPlace(obstacleLastPosition, obstacleCount);
         }
     }
