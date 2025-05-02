@@ -27,11 +27,29 @@ public class Player : MonoBehaviour
     // 마우스 클릭시 또는 스페이스바 누를 경우 이동 처리
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0))
+        // 죽었으면 게임 restart 호출
+        if(isDead)
         {
-            isFlap = true; // 점프 처리
-            FixedUpdate(); // 물리 연산이 필요하므로 FixedUpdate에서 이동 처리
-
+            if (deathCooldown <= 0)
+            {
+                // 게임 재시작
+                if (Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0))
+                {
+                    gameManager.GameRestart();
+                }
+            }
+            else
+            {
+                deathCooldown -= Time.deltaTime;
+            }
+        }
+        else
+        {
+            if (Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0))
+            {
+                isFlap = true; // 점프 처리
+                FixedUpdate(); // 물리 연산이 필요하므로 FixedUpdate에서 이동 처리
+            }
         }
     }
 
@@ -68,9 +86,9 @@ public class Player : MonoBehaviour
         transform.rotation = Quaternion.Euler(0, 0, angle);
     }
 
+    // 무엇이든 충돌시 게임 종료
     private void OnCollisionEnter2D(Collision2D collision)
     {
-
         if (isDead) return;
         // 죽으면 1초 있다 재시작 처리
         isDead = true;
@@ -80,4 +98,5 @@ public class Player : MonoBehaviour
         animator.SetBool("IsDie", true);
         gameManager.GameOver();
     }
+
 }
