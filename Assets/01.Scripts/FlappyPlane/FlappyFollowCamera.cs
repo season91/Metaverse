@@ -1,7 +1,7 @@
 using UnityEngine;
 
 // Flappy - Main Camera 연결
-public class FollowCamera : MonoBehaviour
+public class FlappyFollowCamera : MonoBehaviour
 {
     // player 위치로 메인 카메라가 따라가게 하기 위해 선언
     public Transform playerTransform;
