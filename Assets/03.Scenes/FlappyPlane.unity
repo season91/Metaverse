@@ -2691,7 +2691,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   GameOverImage: {fileID: 1089185160}
-  GameStartText: {fileID: 1147674005}
   scoreText: {fileID: 815310917}
 --- !u!1 &1089185158
 GameObject:
@@ -2785,7 +2784,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1147674004
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4525,6 +4524,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   forwardSpeed: 3
   flapForce: 6
+  isDead: 0
 --- !u!1001 &9068545384453950896
 PrefabInstance:
   m_ObjectHideFlags: 0

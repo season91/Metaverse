@@ -26,15 +26,19 @@ public class FlappyGameManager : MonoBehaviour
         uiManager.UpdateScore(0);
     }
 
-    public void GameRestart()
+    public void EndGame()
     {
-       SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        Debug.Log("currentScore " + currentScore);
+        PlayerPrefs.SetInt("FlappyGameScore", currentScore);
+        PlayerPrefs.Save();
+
+        SceneManager.LoadScene("Metaverse");
     }
 
     public void GameOver()
     {
         // 게임 끝날 땐 ui get ready 이미지 UI 호출
-        uiManager.SetRestart();
+        //uiManager.SetRestart();
         uiManager.SetGameOver();
     }
 

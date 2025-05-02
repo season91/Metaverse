@@ -1,23 +1,27 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameZone : MonoBehaviour
 {
+    public GameObject popupUI;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Player"))
         {
-            Debug.Log("Player Enter");
+            popupUI.SetActive(true);
         }
+            
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
         if (collision.CompareTag("Player"))
         {
-            Debug.Log("Player Exit");
+            popupUI.SetActive(false);
+            int score = PlayerPrefs.GetInt("FlappyGameScore", 0);
+            Debug.Log($"미니게임 점수: {score}");
+
         }
     }
 }

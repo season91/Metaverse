@@ -32,10 +32,10 @@ public class Player : MonoBehaviour
         {
             if (deathCooldown <= 0)
             {
-                // 게임 재시작
+                // 게임 종료. 메타버스로 복귀
                 if (Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0))
                 {
-                    gameManager.GameRestart();
+                    gameManager.EndGame();
                 }
             }
             else
