@@ -5,16 +5,21 @@ using UnityEngine;
 public enum UIState
 {
     Home,
+    Score,
     Popup,
 }
 public class UIManager : MonoBehaviour
 {
+    ScoreUI scoreUI;
     PopupUI popupUI;
 
     private UIState currentState;
 
     private void Awake()
     {
+        scoreUI = GetComponentInChildren<ScoreUI>(true);
+        scoreUI.Init(this);
+
         popupUI = GetComponentInChildren<PopupUI>(true);
         popupUI.Init(this);
     }
@@ -22,7 +27,16 @@ public class UIManager : MonoBehaviour
     // 현재 UI 상태를 변경하고, 각 UI 오브젝트에 상태를 전달
     public void ChangeState(UIState state)
     {
-        currentState = state; //최신화
+        currentState = state;
+
+        scoreUI.SetActive(currentState);
+        popupUI.SetActive(currentState);
+    }
+
+    // Score UI에 출력
+    public void SetScoreUI()
+    {
+        scoreUI.SetScoreText(GameManager.Instance.Score, GameManager.Instance.BestScore);
     }
 
 }

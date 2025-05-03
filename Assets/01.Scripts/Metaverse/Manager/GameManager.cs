@@ -13,6 +13,16 @@ public class GameManager : MonoBehaviour
     // UI 전환을 위해 호출
     private UIManager uiManager;
 
+    // 미니게임 관련 변수
+    // 점수
+    private int score = 0;
+    public int Score { get => score; }
+    private const string MiniGameScoreKey = "FlappyGameScore";
+    // 최고 점수
+    private int bestScore = 0;
+    public int BestScore { get => bestScore; }
+    private const string MiniGameBestScoreKey = "FlappyGameBestScore";
+
     private void Awake()
     {
         instance = this;
@@ -22,9 +32,50 @@ public class GameManager : MonoBehaviour
         uiManager = FindObjectOfType<UIManager>();
     }
 
+    // 메타버스 씬에서 점수 로드
+    private void Start()
+    {
+        score = PlayerPrefs.GetInt(MiniGameScoreKey, 0);
+        bestScore = PlayerPrefs.GetInt(MiniGameBestScoreKey, 0);
+        SetMiniGameScoreUI();
+    }
+
+    // 미니게임 영역 진입시 Popup On
+    public void EnterMiniGameZone()
+    {
+        uiManager.ChangeState(UIState.Popup);
+    }
+
+    // 미니게임 영역 이탈시 Score On
+    public void ExitMiniGameZone()
+    {
+        uiManager.ChangeState(UIState.Score);
+        SetMiniGameScoreUI();
+    }
+
+    // 미니게임 실행 - Popup start button 선택시 호출
     public void StartMiniGame()
     {
         SceneManager.LoadScene("FlappyPlane");
     }
 
+    // 미니게임 종료 후 Score UI 반영
+    public void SetMiniGameScoreUI()
+    {
+        UpdateMiniGameScore();
+        uiManager.SetScoreUI();
+    }
+
+    // 미니게임 점수 갱신 확인
+    private void UpdateMiniGameScore()
+    {
+        if (bestScore < score)
+        {
+            Debug.Log("최고 점수 갱신");
+            bestScore = score;
+            PlayerPrefs.SetInt(MiniGameBestScoreKey, bestScore);
+            PlayerPrefs.Save();
+        }
+    }
 }
+

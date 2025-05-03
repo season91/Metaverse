@@ -28,7 +28,6 @@ public class FlappyGameManager : MonoBehaviour
 
     public void EndGame()
     {
-        Debug.Log("currentScore " + currentScore);
         PlayerPrefs.SetInt("FlappyGameScore", currentScore);
         PlayerPrefs.Save();
 

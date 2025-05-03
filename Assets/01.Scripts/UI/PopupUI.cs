@@ -21,9 +21,10 @@ public class PopupUI : BaseUI
         GameManager.Instance.StartMiniGame();
     }
 
-    // UI 상태 변경 - 홈으로
+    // UI 상태 변경
     protected override UIState GetUIState()
     {
         return UIState.Popup;
     }
+
 }

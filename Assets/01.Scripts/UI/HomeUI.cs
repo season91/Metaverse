@@ -25,11 +25,10 @@ public class HomeUI : BaseUI
     // 게임 종료
     public void OnClickExitButton()
     {
-        // 빌드된 애플리케이션 종료 (에디터에서는 작동하지 않음)
         Application.Quit();
     }
 
-    // UI 상태 변경 - 홈으로
+    // UI 상태 변경
     protected override UIState GetUIState()
     {
         return UIState.Home;
