@@ -20,9 +20,24 @@ public class BaseController : MonoBehaviour
     protected Vector2 lookDirection = Vector2.zero;
     public Vector2 LookDirection { get { return lookDirection; } }
 
+
+    // 3. 무기-활-원거리 공격을 위한 호출
+    [SerializeField] public WeaponHandler WeaponPrefab;
+    protected WeaponHandler weaponHandler;
+    protected bool isAttacking; // InputSystem에서 value set
+    
+    private float timeSinceLastAttack = float.MaxValue;
+    // 넉백에 대한 방향
+    private Vector2 knockback = Vector2.zero;
+    private float knockbackDuration = 0.0f;
+
     private void Awake()
     {
         _rigidbody = GetComponent<Rigidbody2D>();
+
+        // 게임 중일 경우 무기 호출
+        // weaponPivot에 무기 WeaponPrefab 복제 생성
+       
     }
 
     private void Update()
@@ -30,6 +45,21 @@ public class BaseController : MonoBehaviour
         // lookDirection 값은 InputSystem OnLook에서 설정
         Rotate(lookDirection);
         HandleAction();
+
+        if (GameManager.Instance.isWaveGamePlaying && weaponHandler == null)
+        {
+            if (WeaponPrefab != null)
+                weaponHandler = Instantiate(WeaponPrefab, weaponPivot);
+            else
+                // 이미 무기 장착하고 있다면 가져오기
+                weaponHandler = GetComponentInChildren<WeaponHandler>();
+        }
+        else
+        {
+            weaponHandler = GetComponentInChildren<WeaponHandler>();
+        }
+        // 무기 호출
+        HandleAttackDelay();  // 일정 시간마다 발사할 수 있게 해주겠다는 의미
     }
 
     private void FixedUpdate()
@@ -63,5 +93,41 @@ public class BaseController : MonoBehaviour
         {
             weaponPivot.rotation = Quaternion.Euler(0, 0, rotZ);
         }
+
+        // 무기 회전
+        weaponHandler?.Rotate(isLeft);
+    }
+
+    // 공격
+    // 공격 딜레이 실행
+    private void HandleAttackDelay()
+    {
+        if (weaponHandler == null)
+            return;
+
+        if (timeSinceLastAttack <= weaponHandler.Delay)
+        {
+            timeSinceLastAttack += Time.deltaTime;
+        }
+
+        if (isAttacking && timeSinceLastAttack > weaponHandler.Delay)
+        {
+            timeSinceLastAttack = 0;
+            Attack();
+        }
+    }
+
+    // Attack을 위 딜레이로 호출할거임
+    protected virtual void Attack()
+    {
+        if (lookDirection != Vector2.zero)
+            weaponHandler?.Attack();
+    }
+
+    // 넉백을 얼마나, 얼만큼 적용할 것인지
+    public void ApplyKnockback(Transform other, float power, float duration)
+    {
+        knockbackDuration = duration;
+        knockback = -(other.position - transform.position).normalized * power;
     }
 }

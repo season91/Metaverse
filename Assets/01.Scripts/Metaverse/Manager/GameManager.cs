@@ -30,6 +30,9 @@ public class GameManager : MonoBehaviour
     public int BestScore { get => bestScore; }
     private const string MiniGameBestScoreKey = "FlappyGameBestScore";
 
+    // 웨이브게임 관련 변수
+    public bool isWaveGamePlaying; // GameZone에서 value set
+
     private void Awake()
     {
         instance = this;

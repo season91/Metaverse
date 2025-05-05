@@ -7,6 +7,7 @@ public enum UIState
     Home,
     Score,
     Popup,
+    Wave
 }
 public class UIManager : MonoBehaviour
 {

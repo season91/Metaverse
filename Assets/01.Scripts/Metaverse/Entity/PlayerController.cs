@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 
 public class PlayerController : BaseController
@@ -34,5 +35,19 @@ public class PlayerController : BaseController
         {
             lookDirection = lookDirection.normalized;
         }
+    }
+
+    // 공격 - 마우스 좌클릭
+    void OnFire(InputValue inputValue)
+    {
+        // Canvas를 만들면 EventSystem도 같이 생성되면서 이벤트시스템이 UI클릭 판독함
+        // 이부분에 이벤트 시스템이 UI에 마우스에 올라가있을때는 되지 않게끔
+        if (EventSystem.current.IsPointerOverGameObject())
+            return;
+
+        // 키가 눌려 졌는지 InputAction을 Any로 해서
+        if (gameManager.isWaveGamePlaying)
+            isAttacking = inputValue.isPressed;
+
     }
 }
