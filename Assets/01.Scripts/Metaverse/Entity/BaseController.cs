@@ -29,12 +29,18 @@ public class BaseController : MonoBehaviour
     {
         // lookDirection 값은 InputSystem OnLook에서 설정
         Rotate(lookDirection);
+        HandleAction();
     }
 
     private void FixedUpdate()
     {
         // movementDirection값은 InputSystem OnMove에서 설정
         Movment(movementDirection);
+    }
+
+    protected virtual void HandleAction()
+    {
+        // enemy에서 사용함
     }
 
     // 이동에 대한 처리->물리 연산으로 FixedUpdate에서 호출
