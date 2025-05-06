@@ -9,15 +9,16 @@ public class EnemyManager : MonoBehaviour
     [SerializeField] private Color gizmoColor = new Color(1, 0, 0, 0.3f); // 기즈모 색상
     private List<EnemyController> activeEnemies = new List<EnemyController>(); // 생성된 적 목록
 
-    private GameManager gameManager;
+    private DunjeonGameManager gameManager;
 
     // 웨이브 관련 변수
     private Coroutine waveRoutine;
+    private bool enemySpawnComplite;
     [SerializeField] private float timeBetweenWaves = 1f; // 다음 웨이브 실행 전 일정 시간 대기를 위함
     [SerializeField] private float timeBetweenSpawns = 0.2f;  // 적 생성하고 다음 생성 전 일정 시간 대기를 위함
 
-    // GameManager 에서 초기화하여 호출
-    public void Init(GameManager gameManager)
+    // DunjeonGameManager 에서 초기화하여 호출
+    public void Init(DunjeonGameManager gameManager)
     {
         this.gameManager = gameManager;
     }
@@ -27,6 +28,7 @@ public class EnemyManager : MonoBehaviour
     {
         if (enemyPrefabs.Count == 0 || spawnAreas.Count == 0)
         {
+            Debug.LogWarning("Enemy Prefabs 또는 Spawn Areas가 설정되지 않았습니다.");
             return;
         }
 
@@ -40,13 +42,11 @@ public class EnemyManager : MonoBehaviour
             Random.Range(randomArea.xMin, randomArea.xMax),
             Random.Range(randomArea.yMin, randomArea.yMax)
         );
-
         // 적 생성
         GameObject spawnedEnemy = Instantiate(randomPrefab, new Vector3(randomPosition.x, randomPosition.y), Quaternion.identity);
-        
         // 생성된 적 목록에 추가
         EnemyController enemyController = spawnedEnemy.GetComponent<EnemyController>();
-        enemyController.Init(gameManager.Player.transform); // 유저 위치 = 적 입장에선 공격 대상 위치
+        enemyController.Init(gameManager.player.transform, this); // 유저 위치 = 적 입장에선 공격 대상 위치
         activeEnemies.Add(enemyController);
     }
 
@@ -68,6 +68,9 @@ public class EnemyManager : MonoBehaviour
     public void RemoveEnemyOnDeath(EnemyController enemy)
     {
         activeEnemies.Remove(enemy);
+
+        if (enemySpawnComplite && activeEnemies.Count == 0)
+            gameManager.EndOfWave();
     }
 
     // 웨이브 시작
@@ -82,6 +85,7 @@ public class EnemyManager : MonoBehaviour
             return;
         }
 
+        Debug.Log(waveRoutine != null);
         // 웨이브 루틴 있는지 확인
         if (waveRoutine != null)
             StopCoroutine(waveRoutine);
@@ -92,6 +96,8 @@ public class EnemyManager : MonoBehaviour
 
     private IEnumerator SpawnWave(int waveCount)
     {
+        enemySpawnComplite = false;
+        Debug.Log(" spawn " + waveCount);
         // 일정 시간 대기
         yield return new WaitForSeconds(timeBetweenWaves);
 
@@ -99,9 +105,14 @@ public class EnemyManager : MonoBehaviour
         // 웨이브 개수만큼 반복 - 생성하고 기다리고 생성하고 기다리고
         for (int i = 0; i < waveCount; i++)
         {
+            Debug.Log(" waveCount " + i);
             yield return new WaitForSeconds(timeBetweenSpawns);
             SpawnRandomEnemy();
         }
+        // 생성 완료
+        enemySpawnComplite = true;
+        Debug.Log("SpawnWave completed");  // 추가된 로그
+
     }
 
     // 웨이브 종료

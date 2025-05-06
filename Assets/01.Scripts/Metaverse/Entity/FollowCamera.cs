@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 // Metaverse - Main Camera ¿¡ ¿¬°á
 public class FollowCamera : MonoBehaviour
@@ -10,7 +11,7 @@ public class FollowCamera : MonoBehaviour
 
     void Start()
     {
-        if (playerTransform == null) return;
+        if (playerTransform == null) playerTransform = GameObject.FindWithTag("Player").transform;
         offset = transform.position - playerTransform.position;
     }
 

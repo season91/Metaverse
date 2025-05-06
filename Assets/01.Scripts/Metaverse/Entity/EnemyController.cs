@@ -7,10 +7,14 @@ public class EnemyController : BaseController
     private Transform target;
     [SerializeField] private float followRange = 15f; // 타겟을 쫓아갈 최대 거리
 
+    // 매니저 호출
+    private EnemyManager enemyManager;
+
     // 적 생성시 초기화
-    public void Init(Transform target)
+    public void Init(Transform target, EnemyManager enemyManager)
     {
         this.target = target;
+        this.enemyManager = enemyManager;
     }
 
     // BaseController Update에서 호출
@@ -50,4 +54,11 @@ public class EnemyController : BaseController
         // 방향을 구함
         return (target.position - transform.position).normalized;
     }
+    public override void Death()
+    {
+        base.Death();
+        // 매니저에 꼐속 호출
+        enemyManager.RemoveEnemyOnDeath(this);
+    }
+
 }

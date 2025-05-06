@@ -35,12 +35,21 @@ public class BaseController : MonoBehaviour
     // 4. 스탯 사용을 위한 호출
     protected StatHandler statHandler;
 
+    // 5. 애니메이션사용을 위한 호출
+    protected AnimationHandler animationHandler;
+
     private void Awake()
     {
         _rigidbody = GetComponent<Rigidbody2D>();
         statHandler = GetComponent<StatHandler>();
-        // 게임 중일 경우 무기 호출
+        animationHandler = GetComponent<AnimationHandler>();
+
         // weaponPivot에 무기 WeaponPrefab 복제 생성
+        if (WeaponPrefab != null)
+            weaponHandler = Instantiate(WeaponPrefab, weaponPivot);
+        else
+            // 이미 무기 장착하고 있다면 가져오기
+            weaponHandler = GetComponentInChildren<WeaponHandler>();
     }
 
     private void Update()
@@ -48,20 +57,6 @@ public class BaseController : MonoBehaviour
         // lookDirection 값은 InputSystem OnLook에서 설정
         Rotate(lookDirection);
         HandleAction();
-
-        if (GameManager.Instance.isWaveGamePlaying && weaponHandler == null)
-        {
-            if (WeaponPrefab != null)
-                weaponHandler = Instantiate(WeaponPrefab, weaponPivot);
-            else
-                // 이미 무기 장착하고 있다면 가져오기
-                weaponHandler = GetComponentInChildren<WeaponHandler>();
-        }
-        else
-        {
-            weaponHandler = GetComponentInChildren<WeaponHandler>();
-        }
-        // 무기 호출
         HandleAttackDelay();  // 일정 시간마다 발사할 수 있게 해주겠다는 의미
     }
 
@@ -81,7 +76,16 @@ public class BaseController : MonoBehaviour
     {
         // statHandler의 속도
         direction = direction * statHandler.Speed;
+
+        // 넉백처리
+        if (knockbackDuration > 0.0f)
+        {
+            direction *= 0.2f;
+            direction += knockback;
+        }
+
         _rigidbody.velocity = direction;
+        animationHandler.Move(direction);
     }
 
     // 바라보는 방향으로 캐릭터 회전 처리
@@ -132,5 +136,30 @@ public class BaseController : MonoBehaviour
     {
         knockbackDuration = duration;
         knockback = -(other.position - transform.position).normalized * power;
+    }
+
+    // 사망 처리
+    public virtual void Death()
+    {
+        // 움직임 중지
+        _rigidbody.velocity = Vector3.zero;
+
+        // 하위 모든 스프라이트 찾아와서 연출
+        // 모든 SpriteRenderer의 투명도 낮춰서 죽은 효과 연출
+        foreach (SpriteRenderer renderer in transform.GetComponentsInChildren<SpriteRenderer>())
+        {
+            Color color = renderer.color;
+            color.a = 0.3f;
+            renderer.color = color;
+        }
+
+        //  모든 컴포넌트(스크립트 포함) 비활성화
+        foreach (Behaviour component in transform.GetComponentsInChildren<Behaviour>())
+        {
+            component.enabled = false;
+        }
+
+        // 2초있다 오브젝트 파괴
+        Destroy(gameObject, 2f);
     }
 }

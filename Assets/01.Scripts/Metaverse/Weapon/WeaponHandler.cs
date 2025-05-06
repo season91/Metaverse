@@ -7,9 +7,13 @@ public class WeaponHandler : MonoBehaviour
     [Header("Attack Info")]
     [SerializeField] private float delay = 1f;
     public float Delay { get => delay; set => delay = value; }
-
+    // 무기 사이즈
     [SerializeField] private float weaponSize = 1f;
     public float WeaponSize { get => weaponSize; set => weaponSize = value; }
+    // 공격력
+    [SerializeField] private float power = 1f;
+    public float Power { get => power; set => power = value; }
+    // 공격속도
     [SerializeField] private float speed = 1f;
     public float Speed { get => speed; set => speed = value; }
     // 레이어 타겟

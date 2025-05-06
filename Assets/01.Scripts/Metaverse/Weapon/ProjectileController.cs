@@ -5,7 +5,7 @@ using UnityEngine;
 public class ProjectileController : MonoBehaviour
 {
     // 충돌처리 대상
-    [SerializeField] private LayerMask levelCollisionLayer;
+    [SerializeField] private LayerMask collisionLayer;
     // 저장해둘 것
     private RangeWeaponHandler rangeWeaponHandler;
     private bool isReady;
@@ -75,19 +75,27 @@ public class ProjectileController : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         // 설정한 레이어에 충돌된 것 인지 확인
-        if (levelCollisionLayer.value == (levelCollisionLayer.value | (1 << collision.gameObject.layer)))
+        if (collisionLayer.value == (collisionLayer.value | (1 << collision.gameObject.layer)))
         {
             DestroyProjectile(collision.ClosestPoint(transform.position) - direction * .2f);
         }
         else if (rangeWeaponHandler.target.value == (rangeWeaponHandler.target.value | (1 << collision.gameObject.layer)))
         {
-            if (rangeWeaponHandler.IsOnKnockback) // 넉백 켜져있다면 넉백 처리
+            // 설정한 레이어가 아닌 Object 충돌시 데미지, 넉백 처리
+            // 데미지 처리를 위해 ResourceController 호출
+            ResourceController resourceController = collision.GetComponent<ResourceController>();
+            if (resourceController != null)
             {
-                // 넉백 처리를 위해 베이스 컨트롤러 호출해서 넉백 적용
-                BaseController controller = collision.GetComponent<BaseController>();
-                if (controller != null)
+                // 데미지 적용
+                resourceController.ChangeHealth(-rangeWeaponHandler.Power);
+                if (rangeWeaponHandler.IsOnKnockback) // 넉백 켜져있다면 넉백 처리
                 {
-                    controller.ApplyKnockback(transform, rangeWeaponHandler.KnockbackPower, rangeWeaponHandler.KnockbackTime);
+                    // 넉백 처리를 위해 베이스 컨트롤러 호출해서 넉백 적용
+                    BaseController controller = collision.GetComponent<BaseController>();
+                    if (controller != null)
+                    {
+                        controller.ApplyKnockback(transform, rangeWeaponHandler.KnockbackPower, rangeWeaponHandler.KnockbackTime);
+                    }
                 }
             }
 

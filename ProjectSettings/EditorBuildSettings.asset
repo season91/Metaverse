@@ -6,9 +6,12 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/Metaverse.unity
+    path: Assets/03.Scenes/Metaverse.unity
     guid: 2cda990e2423bbf4892e6590ba056729
   - enabled: 1
-    path: Assets/Scenes/FlappyPlane.unity
+    path: Assets/03.Scenes/FlappyPlane.unity
     guid: 89af6fe1c0d27054cbe5e03e77138d54
+  - enabled: 1
+    path: Assets/03.Scenes/Dunjeon.unity
+    guid: a930fbf78c74a8d4b96bb33b1e2f2af0
   m_configObjects: {}
