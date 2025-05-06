@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
@@ -9,6 +10,7 @@ public class PlayerController : BaseController
     private Camera _camera; 
     private GameManager gameManager;
     private GameObject touchItem;
+   
 
     public void Init(GameManager gameManager)
     {
@@ -57,7 +59,6 @@ public class PlayerController : BaseController
         {
             if (touchItem != null)
             {
-                Debug.Log(touchItem.gameObject.name);
                 if (touchItem.gameObject.name == "FlappyGame")
                 {
                     GameManager.Instance.StartMiniGame();
@@ -76,6 +77,8 @@ public class PlayerController : BaseController
         if (collision.gameObject.name == "FlappyGame" || collision.gameObject.name == "WaveGame")
         {
             touchItem = collision.gameObject;
+            GameManager.Instance.SetMiniGamePopup(collision.gameObject.transform.position, true);
+            // uiManager를 통해 PressUI Active
         }
     }
 
@@ -84,6 +87,7 @@ public class PlayerController : BaseController
         if (collision.gameObject.name == "FlappyGame" || collision.gameObject.name == "WaveGame")
         {
             touchItem = null;
+            GameManager.Instance.SetMiniGamePopup(collision.gameObject.transform.position, false);
         }
     }
     private void OnEnable()
@@ -96,6 +100,7 @@ public class PlayerController : BaseController
         SceneManager.sceneLoaded -= OnSceneLoaded;
     }
 
+    // 씬 전환 후 카메라 재설정을 위해 사용
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         _camera = Camera.main;

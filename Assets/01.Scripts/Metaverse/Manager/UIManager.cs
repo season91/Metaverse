@@ -1,43 +1,88 @@
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 // Metaverse - Canvas 연결
-// UI 상태
-public enum UIState
-{
-    Home,
-    Score,
-    Popup,
-    Wave
-}
+
 public class UIManager : MonoBehaviour
 {
-    ScoreUI scoreUI;
-    PopupUI popupUI;
+    // Popup UI
+    GameObject pressUI;
 
-    private UIState currentState;
+    // Score UI
+    GameObject scoreUI;
+    [SerializeField] private TextMeshProUGUI scorePointText;
+    [SerializeField] private TextMeshProUGUI bestScorePonitText;
+    [SerializeField] private TextMeshProUGUI bestKillPonitText;
+
+    // Wave Game UI
+    GameObject gameUI;
+    [SerializeField] private TextMeshProUGUI waveText;
+    [SerializeField] private TextMeshProUGUI killText;
+    [SerializeField] private Slider hpSlider;
+
 
     private void Awake()
     {
-        scoreUI = GetComponentInChildren<ScoreUI>(true);
-        scoreUI.Init(this);
-
-        popupUI = GetComponentInChildren<PopupUI>(true);
-        popupUI.Init(this);
+        pressUI = transform.Find("PressUI").gameObject;
+        scoreUI = transform.Find("ScoreUI").gameObject;
+        gameUI = transform.Find("GameUI").gameObject;
     }
 
-    // 현재 UI 상태를 변경하고, 각 UI 오브젝트에 상태를 전달
-    public void ChangeState(UIState state)
+    private void Start()
     {
-        currentState = state;
+        // 시작 시 체력 슬라이더를 가득 채움 (100%)
+        UpdateHPSlider(1);
 
-        scoreUI.SetActive(currentState);
-        popupUI.SetActive(currentState);
+        // kill 수 초기화
+        ChangeKill(0);
+
+        // 씬 이동시 파괴방지
+        DontDestroyOnLoad(this.gameObject);
     }
 
-    // Score UI에 출력
-    public void SetScoreUI()
+    // Score UI
+    public void SetScoreUI(bool isEnable, int score, int bestScore)
     {
-        scoreUI.SetScoreText(GameManager.Instance.Score, GameManager.Instance.BestScore);
+        UpdateScoreUI(score, bestScore);
+        scoreUI.SetActive(isEnable);
+    }
+    public void UpdateScoreUI(int score, int bestScore)
+    {
+        scorePointText.text = score.ToString();
+        bestScorePonitText.text = bestScore.ToString();
+        bestKillPonitText.text = killText.text;
     }
 
+    // Press UI 
+    public void SetPressUI(Vector3 miniGamePosition, bool isEnter)
+    {
+        if(isEnter) pressUI.transform.position = miniGamePosition + new Vector3(0, 1f, 0);
+        pressUI.SetActive(isEnter);
+    }
+
+    public void UpdateHPSlider(float percentage)
+    {
+        hpSlider.value = percentage;
+    }
+
+    // Wave Game UI
+    public void SetGameUI(bool isEnable)
+    {
+        gameUI.SetActive(isEnable);
+    }
+
+    public void ChangeWave(int wave)
+    {
+        waveText.text = wave.ToString();
+    }
+    public void ChangeKill(int killCount)
+    {
+        killText.text = killCount.ToString();
+    }
+
+    public void ChangePlayerHP(float currentHP, float maxHP)
+    {
+        UpdateHPSlider(currentHP / maxHP);
+    }
 }

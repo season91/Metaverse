@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 // Metavers - Goblin 연결
@@ -9,6 +10,9 @@ public class EnemyController : BaseController
 
     // 매니저 호출
     private EnemyManager enemyManager;
+
+    // 몬스터 잡을 때 이벤트
+    private Action<int> OnChangeKill;
 
     // 적 생성시 초기화
     public void Init(Transform target, EnemyManager enemyManager)
@@ -74,7 +78,18 @@ public class EnemyController : BaseController
     public override void Death()
     {
         base.Death();
+        enemyManager.killCount++;
+        OnChangeKill?.Invoke(enemyManager.killCount); // 몬스터 잡을 때 증가 이벤트
         enemyManager.RemoveEnemyOnDeath(this);
     }
 
+    public void AddKillChangeEvent(Action<int> action)
+    {
+        OnChangeKill += action;
+    }
+
+    public void RemoveKillChangeEvent(Action<int> action)
+    {
+        OnChangeKill -= action;
+    }
 }

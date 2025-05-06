@@ -15,8 +15,7 @@ public class ResourceController : MonoBehaviour
     // 최대 체력은 StatHandler로부터 가져옴
     public float MaxHealth => statHandler.Health;
     // 체력이 바뀔 때 호출되는 이벤트 (현재 체력, 최대 체력 전달)
-    private Action<float, float> OnChangeHealth;
-
+    public Action<float, float> OnChangeHealth;
     private BaseController baseController;
     private StatHandler statHandler;
     private AnimationHandler animationHandler;
@@ -72,7 +71,7 @@ public class ResourceController : MonoBehaviour
         // 체력 변경 이벤트 호출 (UI 등에서 이 값을 수신해 처리함)
         // 델리게이트를 활용해서 OnChangeHealth 역으로 호출되는 구조를 만드는 것
         // OnChangeHealth와 연결된 함수가 있다면 두개를 넘겨주고 실행시키겠다는 것
-        //OnChangeHealth?.Invoke(CurrentHealth, MaxHealth);
+        OnChangeHealth?.Invoke(CurrentHealth, MaxHealth);
 
         if (change < 0)
         {

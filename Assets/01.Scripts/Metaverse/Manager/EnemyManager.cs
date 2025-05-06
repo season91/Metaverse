@@ -10,21 +10,24 @@ public class EnemyManager : MonoBehaviour
     private List<EnemyController> activeEnemies = new List<EnemyController>(); // 생성된 적 목록
 
     private GameManager gameManager;
+    private UIManager uiManager;
 
     // 웨이브 관련 변수
     private Coroutine waveRoutine;
     private bool enemySpawnComplite;
     [SerializeField] private float timeBetweenWaves = 1f; // 다음 웨이브 실행 전 일정 시간 대기를 위함
     [SerializeField] private float timeBetweenSpawns = 0.2f;  // 적 생성하고 다음 생성 전 일정 시간 대기를 위함
+    public int killCount = 0;
 
-    // DunjeonGameManager 에서 초기화하여 호출
-    public void Init(GameManager gameManager)
+    // GameManager 에서 초기화하여 호출
+    public void Init(GameManager gameManager, UIManager uiManager)
     {
         this.gameManager = gameManager;
+        this.uiManager = uiManager;
     }
 
     // 적 랜덤 위치에 생성
-    private void SpawnRandomEnemy()
+    private void SpawnRandomEnemy(int count)
     {
         if (enemyPrefabs.Count == 0 || spawnAreas.Count == 0)
         {
@@ -46,6 +49,12 @@ public class EnemyManager : MonoBehaviour
         // 생성된 적 목록에 추가
         EnemyController enemyController = spawnedEnemy.GetComponent<EnemyController>();
         enemyController.Init(gameManager.Player.transform, this); // 유저 위치 = 적 입장에선 공격 대상 위치
+
+        if(count == 0)
+        {
+            enemyController.RemoveKillChangeEvent(uiManager.ChangeKill);
+            enemyController.AddKillChangeEvent(uiManager.ChangeKill);
+        }
         activeEnemies.Add(enemyController);
     }
 
@@ -67,7 +76,6 @@ public class EnemyManager : MonoBehaviour
     public void RemoveEnemyOnDeath(EnemyController enemy)
     {
         activeEnemies.Remove(enemy);
-
         if (enemySpawnComplite && activeEnemies.Count == 0)
             gameManager.EndOfWave();
     }
@@ -84,7 +92,6 @@ public class EnemyManager : MonoBehaviour
             return;
         }
 
-        Debug.Log(" null  " + waveRoutine == null);
         // 웨이브 루틴 있는지 확인
         if (waveRoutine != null)
             StopCoroutine(waveRoutine);
@@ -104,7 +111,7 @@ public class EnemyManager : MonoBehaviour
         for (int i = 0; i < waveCount; i++)
         {
             yield return new WaitForSeconds(timeBetweenSpawns);
-            SpawnRandomEnemy();
+            SpawnRandomEnemy(i);
         }
         // 생성 완료
         enemySpawnComplite = true;
