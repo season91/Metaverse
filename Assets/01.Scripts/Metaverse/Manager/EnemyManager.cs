@@ -9,7 +9,7 @@ public class EnemyManager : MonoBehaviour
     [SerializeField] private Color gizmoColor = new Color(1, 0, 0, 0.3f); // 기즈모 색상
     private List<EnemyController> activeEnemies = new List<EnemyController>(); // 생성된 적 목록
 
-    private DunjeonGameManager gameManager;
+    private GameManager gameManager;
 
     // 웨이브 관련 변수
     private Coroutine waveRoutine;
@@ -18,7 +18,7 @@ public class EnemyManager : MonoBehaviour
     [SerializeField] private float timeBetweenSpawns = 0.2f;  // 적 생성하고 다음 생성 전 일정 시간 대기를 위함
 
     // DunjeonGameManager 에서 초기화하여 호출
-    public void Init(DunjeonGameManager gameManager)
+    public void Init(GameManager gameManager)
     {
         this.gameManager = gameManager;
     }
@@ -28,7 +28,6 @@ public class EnemyManager : MonoBehaviour
     {
         if (enemyPrefabs.Count == 0 || spawnAreas.Count == 0)
         {
-            Debug.LogWarning("Enemy Prefabs 또는 Spawn Areas가 설정되지 않았습니다.");
             return;
         }
 
@@ -46,7 +45,7 @@ public class EnemyManager : MonoBehaviour
         GameObject spawnedEnemy = Instantiate(randomPrefab, new Vector3(randomPosition.x, randomPosition.y), Quaternion.identity);
         // 생성된 적 목록에 추가
         EnemyController enemyController = spawnedEnemy.GetComponent<EnemyController>();
-        enemyController.Init(gameManager.player.transform, this); // 유저 위치 = 적 입장에선 공격 대상 위치
+        enemyController.Init(gameManager.Player.transform, this); // 유저 위치 = 적 입장에선 공격 대상 위치
         activeEnemies.Add(enemyController);
     }
 
@@ -97,7 +96,6 @@ public class EnemyManager : MonoBehaviour
     private IEnumerator SpawnWave(int waveCount)
     {
         enemySpawnComplite = false;
-        Debug.Log(" spawn " + waveCount);
         // 일정 시간 대기
         yield return new WaitForSeconds(timeBetweenWaves);
 
@@ -105,13 +103,11 @@ public class EnemyManager : MonoBehaviour
         // 웨이브 개수만큼 반복 - 생성하고 기다리고 생성하고 기다리고
         for (int i = 0; i < waveCount; i++)
         {
-            Debug.Log(" waveCount " + i);
             yield return new WaitForSeconds(timeBetweenSpawns);
             SpawnRandomEnemy();
         }
         // 생성 완료
         enemySpawnComplite = true;
-        Debug.Log("SpawnWave completed");  // 추가된 로그
 
     }
 

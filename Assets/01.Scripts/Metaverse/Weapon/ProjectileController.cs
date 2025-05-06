@@ -17,6 +17,11 @@ public class ProjectileController : MonoBehaviour
     private Rigidbody2D _rigidbody;
     private SpriteRenderer spriteRenderer;
 
+    // 파티클 호출 함수 사용을 위해 선언 
+    private ProjectileManager projectileManager;
+    // 삭제될 때 파티클 이펙트 출력 여부
+    public bool fxOnDestory = true;
+
     private void Awake()
     {
         spriteRenderer = GetComponentInChildren<SpriteRenderer>();
@@ -35,7 +40,7 @@ public class ProjectileController : MonoBehaviour
 
         if (currentDuration > rangeWeaponHandler.Duration)
         {
-            DestroyProjectile(transform.position);
+            DestroyProjectile(transform.position, false);
         }
 
         _rigidbody.velocity = direction * rangeWeaponHandler.Speed;
@@ -47,6 +52,7 @@ public class ProjectileController : MonoBehaviour
         // 저장
         this.rangeWeaponHandler = weaponHandler;
         this.direction = direction;
+        this.projectileManager = projectileManager;
 
         currentDuration = 0;
         transform.localScale = Vector3.one * weaponHandler.BulletSize;
@@ -66,8 +72,13 @@ public class ProjectileController : MonoBehaviour
     }
 
     // 파괴
-    private void DestroyProjectile(Vector3 position)
+    private void DestroyProjectile(Vector3 position, bool createFx)
     {
+        if (createFx)
+        {
+            projectileManager.CreateImpactParticlesAtPostion(position, rangeWeaponHandler);
+        }
+
         Destroy(this.gameObject);
     }
 
@@ -77,7 +88,7 @@ public class ProjectileController : MonoBehaviour
         // 설정한 레이어에 충돌된 것 인지 확인
         if (collisionLayer.value == (collisionLayer.value | (1 << collision.gameObject.layer)))
         {
-            DestroyProjectile(collision.ClosestPoint(transform.position) - direction * .2f);
+            DestroyProjectile(collision.ClosestPoint(transform.position) - direction * .2f, fxOnDestory);
         }
         else if (rangeWeaponHandler.target.value == (rangeWeaponHandler.target.value | (1 << collision.gameObject.layer)))
         {
@@ -99,7 +110,7 @@ public class ProjectileController : MonoBehaviour
                 }
             }
 
-            DestroyProjectile(collision.ClosestPoint(transform.position));
+            DestroyProjectile(collision.ClosestPoint(transform.position), fxOnDestory);
         }
     }
 

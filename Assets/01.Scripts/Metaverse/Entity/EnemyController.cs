@@ -25,7 +25,7 @@ public class EnemyController : BaseController
 
         // tartget 예외처리
         // 적을 프리팹 복사 생성을 하기 때문에 EnemyController 초기화 되지 않은 상태로 에러 발생할 수 있음
-        if (target == null)
+        if (weaponHandler == null || target == null)
         {
             if (!movementDirection.Equals(Vector2.zero)) movementDirection = Vector2.zero;
             return;
@@ -33,6 +33,7 @@ public class EnemyController : BaseController
         float distance = DistanceToTarget();
         Vector2 direction = DirectionToTarget();
 
+        isAttacking = false; // 지금은 fasle 
         if (distance <= followRange) // 따라갈 거리 안에 들어왔으면 방향 전환 처리
         {
             lookDirection = direction; // 바라볼 수 있게 look 변경

@@ -101,4 +101,9 @@ public class PlayerController : BaseController
         _camera = Camera.main;
     }
 
+    public override void Death()
+    {
+        base.Death();
+        gameManager.GameOver();
+    }
 }

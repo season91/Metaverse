@@ -185,6 +185,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   delay: 0.4
   weaponSize: 0.5
+  power: 1
   speed: 2
   target:
     serializedVersion: 2
@@ -192,7 +193,7 @@ MonoBehaviour:
   isOnKnockback: 1
   knockbackPower: 1
   knockbackTime: 0.1
-  projectileSpawnPosition: {fileID: 0}
+  projectileSpawnPosition: {fileID: 2854597821779609783}
   bulletSize: 0.5
   bulletIndex: 0
   duration: 10

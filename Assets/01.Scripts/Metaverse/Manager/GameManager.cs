@@ -10,10 +10,12 @@ public class GameManager : MonoBehaviour
     // Player 이동, 바라보는 처리를 위한 호출
     public PlayerController Player {  get; private set; }
 
-
     // UI 전환을 위해 호출
     private UIManager uiManager;
 
+    // Wave 게임 관련 변수
+    [SerializeField] private int currentWaveIndex = 0;
+    private EnemyManager enemyManager;
 
     // 미니게임 관련 변수
     // 점수
@@ -34,15 +36,18 @@ public class GameManager : MonoBehaviour
         // UIManager 초기화 - 전환을 위해
         uiManager = FindObjectOfType<UIManager>();
 
-        
+        enemyManager = GetComponentInChildren<EnemyManager>();
+        enemyManager.Init(this);
     }
 
-    // 메타버스 씬에서 점수 로드
     private void Start()
     {
         score = PlayerPrefs.GetInt(MiniGameScoreKey, 0);
         bestScore = PlayerPrefs.GetInt(MiniGameBestScoreKey, 0);
         //SetMiniGameScoreUI();
+
+        // 씬 이동시 사용하기 위해 
+        DontDestroyOnLoad(this.gameObject);
     }
 
     // 미니게임 영역 진입시 Popup On
@@ -90,7 +95,21 @@ public class GameManager : MonoBehaviour
     public void StartWaveGame()
     {
         SceneManager.LoadScene("Dunjeon");
+        StartNextWave();
     }
-
+    private void StartNextWave()
+    {
+        currentWaveIndex += 1;
+        enemyManager.StartWave(1 + currentWaveIndex / 5);
+    }
+    public void EndOfWave()
+    {
+        StartNextWave();
+    }
+    
+    public void GameOver()
+    {
+        enemyManager.StopWave();
+    }
 }
 
