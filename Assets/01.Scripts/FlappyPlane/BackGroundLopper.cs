@@ -3,7 +3,6 @@ using UnityEngine;
 // Flappy - Main Camera - BackGroundLopper 연결(충돌 컴포넌트만 있음)
 public class BackGroundLopper : MonoBehaviour
 {
-    private int numBgCount = 5; // 배경 개수
     private int obstacleCount = 0; // 장애물 개수
     private Vector3 obstacleLastPosition = Vector3.zero; // 장애물 마지막 위치. 0,0,0 위치로 시작
 
