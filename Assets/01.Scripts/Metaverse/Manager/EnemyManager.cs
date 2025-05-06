@@ -63,7 +63,7 @@ public class EnemyManager : MonoBehaviour
         }
     }
 
-    // 적 사망시 생성된 적 목록에서 제거
+    // 적 사망시 생성된 적 목록에서 제거, 다음 웨이브 진행
     public void RemoveEnemyOnDeath(EnemyController enemy)
     {
         activeEnemies.Remove(enemy);
@@ -84,7 +84,7 @@ public class EnemyManager : MonoBehaviour
             return;
         }
 
-        Debug.Log(waveRoutine != null);
+        Debug.Log(" null  " + waveRoutine == null);
         // 웨이브 루틴 있는지 확인
         if (waveRoutine != null)
             StopCoroutine(waveRoutine);

@@ -16,6 +16,10 @@ public class WeaponHandler : MonoBehaviour
     // 공격속도
     [SerializeField] private float speed = 1f;
     public float Speed { get => speed; set => speed = value; }
+    // 공격 범위 
+    [SerializeField] private float attackRange = 10f;
+    public float AttackRange { get => attackRange; set => attackRange = value; }
+
     // 레이어 타겟
     public LayerMask target;
 

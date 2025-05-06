@@ -38,7 +38,23 @@ public class EnemyController : BaseController
         {
             lookDirection = direction; // 바라볼 수 있게 look 변경
 
-            // 공격 대상을 향해 이동하기
+            // 공격 반경 내라면 공격 루틴
+            if (distance <= weaponHandler.AttackRange)
+            {
+                int layerMaskTarget = weaponHandler.target;
+                RaycastHit2D hit = Physics2D.Raycast(transform.position, direction, weaponHandler.AttackRange * 1.5f,
+                       (1 << LayerMask.NameToLayer("Map")) | layerMaskTarget);
+
+                if (hit.collider != null && layerMaskTarget == (layerMaskTarget | (1 << hit.collider.gameObject.layer)))
+                {
+                    isAttacking = true;
+                }
+                // 공격 대상을 향해 이동하기
+                movementDirection = direction;
+                return;
+            }
+
+            // 공격범위 아니라면 이동만. 쫓아가는 거리
             movementDirection = direction;
         }
     }
@@ -58,7 +74,6 @@ public class EnemyController : BaseController
     public override void Death()
     {
         base.Death();
-        // 매니저에 꼐속 호출
         enemyManager.RemoveEnemyOnDeath(this);
     }
 

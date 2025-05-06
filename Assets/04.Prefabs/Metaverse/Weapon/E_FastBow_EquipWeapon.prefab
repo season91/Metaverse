@@ -187,11 +187,12 @@ MonoBehaviour:
   weaponSize: 0.5
   power: 1
   speed: 2
+  attackRange: 10
   target:
     serializedVersion: 2
     m_Bits: 64
   isOnKnockback: 1
-  knockbackPower: 1
+  knockbackPower: 0.1
   knockbackTime: 0.1
   projectileSpawnPosition: {fileID: 2854597821779609783}
   bulletSize: 0.5
@@ -200,4 +201,4 @@ MonoBehaviour:
   numberofProjectilesPerShot: 1
   spread: 1
   multipleProjectilesAngel: 1
-  projectileColor: {r: 1, g: 0, b: 0, a: 0}
+  projectileColor: {r: 1, g: 0, b: 0, a: 1}

@@ -44,7 +44,6 @@ public class GameManager : MonoBehaviour
     {
         score = PlayerPrefs.GetInt(MiniGameScoreKey, 0);
         bestScore = PlayerPrefs.GetInt(MiniGameBestScoreKey, 0);
-        //SetMiniGameScoreUI();
 
         // 씬 이동시 사용하기 위해 
         DontDestroyOnLoad(this.gameObject);
@@ -104,6 +103,7 @@ public class GameManager : MonoBehaviour
     }
     public void EndOfWave()
     {
+        Debug.Log("EndOfWave ");
         StartNextWave();
     }
     

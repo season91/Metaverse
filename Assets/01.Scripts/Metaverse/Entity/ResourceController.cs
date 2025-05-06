@@ -38,6 +38,12 @@ public class ResourceController : MonoBehaviour
         if (timeSinceLastChange < healthChangeDelay)
         {
             timeSinceLastChange += Time.deltaTime;
+
+            // 무적 시간 종료 시 애니메이션에도 알림
+            if (timeSinceLastChange >= healthChangeDelay)
+            {
+                animationHandler.InvincibilityEnd();
+            }
         }
     }
 

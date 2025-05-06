@@ -64,6 +64,10 @@ public class BaseController : MonoBehaviour
     {
         // movementDirection값은 InputSystem OnMove에서 설정
         Movment(movementDirection);
+        if (knockbackDuration > 0.0f)
+        {
+            knockbackDuration -= Time.fixedDeltaTime;
+        }
     }
 
     protected virtual void HandleAction()

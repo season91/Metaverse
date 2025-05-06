@@ -61,7 +61,6 @@ public class RangeWeaponHandler : WeaponHandler
     }
 
     // 매니저를 통해서 발사체 생성
-    // 왜 여기서 안하는 지? - 발사체 컨트롤러 호출도 해야되고 프리팹 생성도 해야해서 매니저에서 실행
     private void CreateProjectile(Vector2 _lookDirection, float angle)
     {
         projectileManager.ShootBullet(
