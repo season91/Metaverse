@@ -31,13 +31,16 @@ public class BaseController : MonoBehaviour
     private Vector2 knockback = Vector2.zero;
     private float knockbackDuration = 0.0f;
 
+
+    // 4. 스탯 사용을 위한 호출
+    protected StatHandler statHandler;
+
     private void Awake()
     {
         _rigidbody = GetComponent<Rigidbody2D>();
-
+        statHandler = GetComponent<StatHandler>();
         // 게임 중일 경우 무기 호출
         // weaponPivot에 무기 WeaponPrefab 복제 생성
-       
     }
 
     private void Update()
@@ -76,8 +79,8 @@ public class BaseController : MonoBehaviour
     // 이동에 대한 처리->물리 연산으로 FixedUpdate에서 호출
     private void Movment(Vector2 direction)
     {
-        // 이동속도 5는 나중에 스텟으로 적용할 것
-        direction = direction * 5;
+        // statHandler의 속도
+        direction = direction * statHandler.Speed;
         _rigidbody.velocity = direction;
     }
 
