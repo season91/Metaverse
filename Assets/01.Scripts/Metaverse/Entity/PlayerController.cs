@@ -1,6 +1,4 @@
-using TMPro;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
@@ -78,7 +76,6 @@ public class PlayerController : BaseController
         {
             touchItem = collision.gameObject;
             GameManager.Instance.SetMiniGamePopup(collision.gameObject.transform.position, true);
-            // uiManager를 통해 PressUI Active
         }
     }
 
@@ -100,7 +97,7 @@ public class PlayerController : BaseController
         SceneManager.sceneLoaded -= OnSceneLoaded;
     }
 
-    // 씬 전환 후 카메라 재설정을 위해 사용
+    // 씬 이동 후 카메라 재설정을 위해 사용 (PlayController DontDestroyOnLoad라서)
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         _camera = Camera.main;
@@ -109,6 +106,6 @@ public class PlayerController : BaseController
     public override void Death()
     {
         base.Death();
-        gameManager.GameOver();
+        gameManager.WaveGameOver();
     }
 }

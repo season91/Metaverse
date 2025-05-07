@@ -78,8 +78,8 @@ public class EnemyController : BaseController
     public override void Death()
     {
         base.Death();
-        enemyManager.killCount++;
-        OnChangeKill?.Invoke(enemyManager.killCount); // 몬스터 잡을 때 증가 이벤트
+        enemyManager.AddKill(1);
+        OnChangeKill?.Invoke((GameManager.Instance.Kill)); // 몬스터 잡을 때 증가 이벤트
         enemyManager.RemoveEnemyOnDeath(this);
     }
 

@@ -30,7 +30,6 @@ public class FlappyGameManager : MonoBehaviour
     {
         PlayerPrefs.SetInt("FlappyGameScore", currentScore);
         PlayerPrefs.Save();
-
         SceneManager.LoadScene("Metaverse");
     }
 

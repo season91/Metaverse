@@ -6,6 +6,10 @@ using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
+    // 싱글톤 처리
+    private static UIManager instance;
+    public static UIManager Instance { get { return instance; } }
+
     // Popup UI
     GameObject pressUI;
 
@@ -24,34 +28,34 @@ public class UIManager : MonoBehaviour
 
     private void Awake()
     {
+        // 중복 제거
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        // 싱글톤 
+        instance = this;
+        DontDestroyOnLoad(gameObject);
+
         pressUI = transform.Find("PressUI").gameObject;
         scoreUI = transform.Find("ScoreUI").gameObject;
         gameUI = transform.Find("GameUI").gameObject;
     }
 
-    private void Start()
-    {
-        // 시작 시 체력 슬라이더를 가득 채움 (100%)
-        UpdateHPSlider(1);
-
-        // kill 수 초기화
-        ChangeKill(0);
-
-        // 씬 이동시 파괴방지
-        DontDestroyOnLoad(this.gameObject);
-    }
-
     // Score UI
-    public void SetScoreUI(bool isEnable, int score, int bestScore)
+    public void SetScoreUI(bool isEnable)
     {
-        UpdateScoreUI(score, bestScore);
+        Debug.Log("SetScoreUI");
+        UpdateScoreUI();
         scoreUI.SetActive(isEnable);
     }
-    public void UpdateScoreUI(int score, int bestScore)
+    public void UpdateScoreUI()
     {
-        scorePointText.text = score.ToString();
-        bestScorePonitText.text = bestScore.ToString();
-        bestKillPonitText.text = killText.text;
+        scorePointText.text = GameManager.Instance.Score.ToString();
+        bestScorePonitText.text = GameManager.Instance.BestScore.ToString();
+        bestKillPonitText.text = GameManager.Instance.BestKill.ToString();
     }
 
     // Press UI 
@@ -69,7 +73,14 @@ public class UIManager : MonoBehaviour
     // Wave Game UI
     public void SetGameUI(bool isEnable)
     {
+        // 시작 시 체력 슬라이더를 가득 채움 (100%)
+        UpdateHPSlider(1);
+        // kill 수 초기화
+        ChangeKill(0);
+        ChangeWave(0);
+
         gameUI.SetActive(isEnable);
+        scoreUI.SetActive(!isEnable);
     }
 
     public void ChangeWave(int wave)

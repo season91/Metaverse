@@ -17,7 +17,6 @@ public class EnemyManager : MonoBehaviour
     private bool enemySpawnComplite;
     [SerializeField] private float timeBetweenWaves = 1f; // 다음 웨이브 실행 전 일정 시간 대기를 위함
     [SerializeField] private float timeBetweenSpawns = 0.2f;  // 적 생성하고 다음 생성 전 일정 시간 대기를 위함
-    public int killCount = 0;
 
     // GameManager 에서 초기화하여 호출
     public void Init(GameManager gameManager, UIManager uiManager)
@@ -55,6 +54,7 @@ public class EnemyManager : MonoBehaviour
             enemyController.RemoveKillChangeEvent(uiManager.ChangeKill);
             enemyController.AddKillChangeEvent(uiManager.ChangeKill);
         }
+
         activeEnemies.Add(enemyController);
     }
 
@@ -124,4 +124,8 @@ public class EnemyManager : MonoBehaviour
         StopAllCoroutines();
     }
 
+    public void AddKill(int killCount)
+    {
+        gameManager.AddKill(killCount);
+    }
 }
