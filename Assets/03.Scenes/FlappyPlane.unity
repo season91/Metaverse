@@ -2300,8 +2300,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19b2e1dccd3ada641b76e35001e83794, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GameOverImage: {fileID: 1089185160}
+  gameOverImage: {fileID: 1089185160}
   scoreText: {fileID: 815310917}
+  gamestartText: {fileID: 1147674005}
 --- !u!1 &1089185158
 GameObject:
   m_ObjectHideFlags: 0
@@ -2394,7 +2395,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1147674004
 RectTransform:
   m_ObjectHideFlags: 0

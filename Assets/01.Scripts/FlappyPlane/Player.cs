@@ -20,6 +20,7 @@ public class Player : MonoBehaviour
     void Start()
     {
         _rigidbody = GetComponent<Rigidbody2D>();
+        _rigidbody.gravityScale = 0f;
         animator = GetComponentInChildren<Animator>();
         gameManager = FlappyGameManager.Instance;
     }
@@ -48,7 +49,9 @@ public class Player : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0))
             {
                 isFlap = true; // 점프 처리
-                FixedUpdate(); // 물리 연산이 필요하므로 FixedUpdate에서 이동 처리
+                _rigidbody.gravityScale = 1f;
+                gameManager.StartUI(false);
+                //FixedUpdate(); // 물리 연산이 필요하므로 FixedUpdate에서 이동 처리
             }
         }
     }
@@ -60,23 +63,26 @@ public class Player : MonoBehaviour
         // 비행기 전진
         Movement();
         // 비행기 회전
-        Rotate(); ;
+        Rotate();
     }
 
     private void Movement()
     {
         // 똑같은 속도로 전진
-        Vector3 velocity = _rigidbody.velocity;
-        velocity.x = forwardSpeed;
-
-        // 비행기 점프 처리
-        if (isFlap)
+        if(_rigidbody.gravityScale > 0f)
         {
-            velocity.y += flapForce; // 점프하는 힘 더해주기
-            isFlap = false; // 사용했으니 false 처리
-        }
+            Vector3 velocity = _rigidbody.velocity;
+            velocity.x = forwardSpeed;
 
-        _rigidbody.velocity = velocity; // 물리 적용
+            // 비행기 점프 처리
+            if (isFlap)
+            {
+                velocity.y += flapForce; // 점프하는 힘 더해주기
+                isFlap = false; // 사용했으니 false 처리
+            }
+
+            _rigidbody.velocity = velocity; // 물리 적용
+        }
     }
 
     private void Rotate()

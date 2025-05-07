@@ -44,4 +44,8 @@ public class FlappyGameManager : MonoBehaviour
         uiManager.UpdateScore(currentScore);
     }
 
+    public void StartUI(bool enable)
+    {
+        uiManager.SetGameStart(enable);
+    }
 }

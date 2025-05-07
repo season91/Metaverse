@@ -47,7 +47,6 @@ public class UIManager : MonoBehaviour
     // Score UI
     public void SetScoreUI(bool isEnable)
     {
-        Debug.Log("SetScoreUI");
         UpdateScoreUI();
         scoreUI.SetActive(isEnable);
     }

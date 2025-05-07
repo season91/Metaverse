@@ -16,7 +16,6 @@ public class FlappyFollowCamera : MonoBehaviour
     void Update()
     {
         if (playerTransform == null) return;
-
         Vector3 pos = transform.position;
         pos.x = playerTransform.position.x + offsetX;
         transform.position = pos;
