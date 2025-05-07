@@ -1,0 +1,158 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="BackGroundLopper" Collapsed="true">
+    <Position X="7" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAgCAAAAAAAAAAAAAAAEAAAAAAAAAAQAAAAAA=</HashCode>
+      <FileName>Assets\01.Scripts\FlappyPlane\BackGroundLopper.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FlappyFollowCamera" Collapsed="true">
+    <Position X="10.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAACAAAACAAAAAAAAAAAAAAAAAAAAQAAAAAAA=</HashCode>
+      <FileName>Assets\01.Scripts\FlappyPlane\FlappyFollowCamera.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FlappyGameManager" Collapsed="true">
+    <Position X="12.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAABACAAAAAAAAAIAkAAAAAAAAABQAAAAAAQAEA=</HashCode>
+      <FileName>Assets\01.Scripts\FlappyPlane\FlappyGameManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FlappyUIManager" Collapsed="true">
+    <Position X="5.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAACQAAQAAAAAAgAAAAAABAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\01.Scripts\FlappyPlane\FlappyUIManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Obstacle" Collapsed="true">
+    <Position X="10.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AFAAAACAACIAACAAAAAABABAQAAAAAAAACAAAQAAAAA=</HashCode>
+      <FileName>Assets\01.Scripts\FlappyPlane\Obstacle.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Player" Collapsed="true">
+    <Position X="12.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BEQAAAAAAiAAAQAABAAAAAAAGBBAAAAAAAAgICAAAAA=</HashCode>
+      <FileName>Assets\01.Scripts\FlappyPlane\Player.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AnimationHandler" Collapsed="true">
+    <Position X="5.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAAAAACAAIABAAAAAAAAAAAAAAAAAAEAAAAAAAAAEEA=</HashCode>
+      <FileName>Assets\01.Scripts\Metaverse\Entity\AnimationHandler.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BaseController" Collapsed="true">
+    <Position X="1.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQQEAEAEgggAABIACAgAAAgEIAAAAAgQAIABCFAAEQ=</HashCode>
+      <FileName>Assets\01.Scripts\Metaverse\Entity\BaseController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EnemyController" Collapsed="true">
+    <Position X="2.75" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAQAAAABIAAgCAAAQAACAAAhIAACAAAAAAA=</HashCode>
+      <FileName>Assets\01.Scripts\Metaverse\Entity\EnemyController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FollowCamera" Collapsed="true">
+    <Position X="7" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACAAAAAACAAAAAAAAAAIAAAAAAAAAAAAAIQAAAAAAA=</HashCode>
+      <FileName>Assets\01.Scripts\Metaverse\Entity\FollowCamera.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PlayerController" Collapsed="true">
+    <Position X="0.5" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEQAAACAAAAAAAACAQAgAAAAAEAAAAAoAACCAKAACAA=</HashCode>
+      <FileName>Assets\01.Scripts\Metaverse\Entity\PlayerController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ResourceController" Collapsed="true">
+    <Position X="8.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AESAAAAAECAACAACBBAAAAQgAAAAAAAgAABABAAAEEA=</HashCode>
+      <FileName>Assets\01.Scripts\Metaverse\Entity\ResourceController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="StatHandler" Collapsed="true">
+    <Position X="5.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAACAAAAAAAAAAAAAAAAAABAAAAAQAAAAAAAAAAAAg=</HashCode>
+      <FileName>Assets\01.Scripts\Metaverse\Entity\StatHandler.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EnemyManager" Collapsed="true">
+    <Position X="8.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EFAAAAAAAAIAAAAAAABAAgAAACACAoIAIAASAJIAIAA=</HashCode>
+      <FileName>Assets\01.Scripts\Metaverse\Manager\EnemyManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GameManager" Collapsed="true">
+    <Position X="8.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABCAAACMAgAAkDAAIAggAAAIBAAABAZAACAYAIIEA=</HashCode>
+      <FileName>Assets\01.Scripts\Metaverse\Manager\GameManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ProjectileManager" Collapsed="true">
+    <Position X="7" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAIAAAAAAABAABAAAQAQAAAAAAAAMA=</HashCode>
+      <FileName>Assets\01.Scripts\Metaverse\Manager\ProjectileManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SoundManager" Collapsed="true">
+    <Position X="10.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAAAAAAAAjAAAACAAAAAAAAAAABAAAAQwgAAACAAQEE=</HashCode>
+      <FileName>Assets\01.Scripts\Metaverse\Manager\SoundManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SoundSource" Collapsed="true">
+    <Position X="12.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAgAAgAAAAAAA=</HashCode>
+      <FileName>Assets\01.Scripts\Metaverse\Manager\SoundSource.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UIManager" Collapsed="true">
+    <Position X="7" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAQAIQIEABAAAgAgAAAAAAAAQABFAAAQQAAAEBSAAEA=</HashCode>
+      <FileName>Assets\01.Scripts\Metaverse\Manager\UIManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ProjectileController" Collapsed="true">
+    <Position X="5.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQBQAAABAAAJCAAAAAAAAAAAEgIAAAAAAIDACAAAEA=</HashCode>
+      <FileName>Assets\01.Scripts\Metaverse\Weapon\ProjectileController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RangeWeaponHandler" Collapsed="true">
+    <Position X="0.5" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEwAQAIAACACCAAAAAgAAAAEAIAABIAAAAKAAABGACA=</HashCode>
+      <FileName>Assets\01.Scripts\Metaverse\Weapon\RangeWeaponHandler.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WeaponHandler" Collapsed="true">
+    <Position X="0.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAAAAAQABSAQAQYAJAAAAAgBEIEIAQABBgAABAIAAkA=</HashCode>
+      <FileName>Assets\01.Scripts\Metaverse\Weapon\WeaponHandler.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="맑은 고딕" Size="9" />
+</ClassDiagram>
