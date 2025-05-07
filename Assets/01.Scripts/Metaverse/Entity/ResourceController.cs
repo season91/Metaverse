@@ -19,6 +19,8 @@ public class ResourceController : MonoBehaviour
     private BaseController baseController;
     private StatHandler statHandler;
     private AnimationHandler animationHandler;
+    // 피격 소리 삽입
+    public AudioClip damageClip;
 
     private void Awake()
     {
@@ -77,6 +79,9 @@ public class ResourceController : MonoBehaviour
         {
             animationHandler.Damage();// 맞는 애니메이션 실행
 
+            // 사운드 적용
+            if (damageClip != null)
+                SoundManager.Instance.PlayClip(damageClip);
         }
 
         // 캐릭터 체력이 0 이하가 되면 사망 처리

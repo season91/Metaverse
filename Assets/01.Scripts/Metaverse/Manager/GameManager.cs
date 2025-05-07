@@ -73,7 +73,7 @@ public class GameManager : MonoBehaviour
     {
         currentWaveIndex = 0;
         enemyManager.StopWave();
-        uiManager.SetGameUI(false);
+        uiManager.ChangeGameUI(false);
         UpdateKill();
         SceneManager.LoadScene("Metaverse");
     }
@@ -100,6 +100,19 @@ public class GameManager : MonoBehaviour
             PlayerPrefs.Save();
         }
     }
+    private void DunjeonBGM(string sceneName)
+    {
+        if (sceneName == "Dunjeon")
+        {
+            AudioClip dunjeonClip = Resources.Load<AudioClip>("Music/Goblins_Dance_(Battle)");
+            SoundManager.Instance.ChangeBackGroundMusic(dunjeonClip);
+        }
+        else if (sceneName == "Metaverse")
+        {
+            SoundManager.Instance.BasicBackGroundMusic();
+        }
+            
+    }
 
     // 씬 이동시 각 씬에서 필요한 것 초기화 (GameManager DontDestroyOnLoad라서)
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
@@ -110,19 +123,27 @@ public class GameManager : MonoBehaviour
             enemyManager = FindObjectOfType<EnemyManager>();
             if (enemyManager != null)
             {
+                // 1. Player 정보
                 Player = FindObjectOfType<PlayerController>();
                 Player.Init(this);
 
+                // 2. 체력 변경 이벤트
                 _playerResourceController = Player.GetComponent<ResourceController>();
-
-                // 체력 변경 이벤트를 UI에 연결 : 리소스컨트롤러가 알아서 일 하다가 체력 변경 이벤트 발생시
                 // 중복 등록 방지를 위해 먼저 제거한 뒤 
                 _playerResourceController.RemoveHealthChangeEvent(uiManager.ChangePlayerHP);
                 // 다시 등록
                 _playerResourceController.AddHealthChangeEvent(uiManager.ChangePlayerHP);
 
-                enemyManager.Init(this, uiManager);
-                uiManager.SetGameUI(true);
+                // 3. EnemyManager 정보
+                enemyManager.Init(this, uiManager); 
+
+                // 4. UI 변경
+                uiManager.ChangeGameUI(true);
+
+                // 5. 배경음 변경
+                DunjeonBGM(scene.name);
+
+                // 6. Wave 게임 시작
                 StartNextWave();
             }
         }
@@ -133,12 +154,21 @@ public class GameManager : MonoBehaviour
             Score = PlayerPrefs.GetInt(MiniGameScoreKey, 0);
             BestScore = PlayerPrefs.GetInt(MiniGameBestScoreKey, 0);
             BestKill = PlayerPrefs.GetInt(WaveGameBestScoreKey, 0);
+
+            // 1. UI 변경
             uiManager.SetScoreUI(true);
+
+            // 2. 배경음 원복
+            DunjeonBGM(scene.name);
         }
 
         if (scene.name == "FlappyPlane")
         {
+            // 1. UI 변경
             uiManager.SetScoreUI(false);
+
+            // 2. 배경음 중지
+            SoundManager.Instance.MusicStop();
         }
     }
     private void OnDestroy()

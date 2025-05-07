@@ -187,12 +187,14 @@ MonoBehaviour:
   weaponSize: 0.7
   power: 5
   speed: 10
+  attackRange: 10
   target:
     serializedVersion: 2
     m_Bits: 128
   isOnKnockback: 1
   knockbackPower: 0.1
   knockbackTime: 0.5
+  attackSoundClip: {fileID: 8300000, guid: 39c6a55acc65bfe4e8b3003e722cf19e, type: 3}
   projectileSpawnPosition: {fileID: 7830480613932853390}
   bulletSize: 1
   bulletIndex: 0

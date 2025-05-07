@@ -34,6 +34,8 @@ public class WeaponHandler : MonoBehaviour
     [SerializeField] private float knockbackTime = 0.5f;
     public float KnockbackTime { get => knockbackTime; set => knockbackTime = value; }
 
+    // 무기 공격시 소리 적용을 위해 호출
+    public AudioClip attackSoundClip;
 
     // 초기화 필요한 정보들
     public BaseController Controller { get; private set; }
@@ -61,6 +63,9 @@ public class WeaponHandler : MonoBehaviour
     public virtual void Attack()
     {
         AttackAnimation();
+
+        if (attackSoundClip != null)
+            SoundManager.Instance.PlayClip(attackSoundClip);
     }
 
     public void AttackAnimation()

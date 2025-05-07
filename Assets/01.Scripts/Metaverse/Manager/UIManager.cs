@@ -70,7 +70,7 @@ public class UIManager : MonoBehaviour
     }
 
     // Wave Game UI
-    public void SetGameUI(bool isEnable)
+    public void ChangeGameUI(bool isEnable)
     {
         // 시작 시 체력 슬라이더를 가득 채움 (100%)
         UpdateHPSlider(1);
